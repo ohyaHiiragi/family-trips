@@ -1,2 +1,1 @@
-# family-trips
-travel website
+# trips
