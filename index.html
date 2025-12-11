@@ -312,14 +312,15 @@
   <script>
     // ===== 行程資料 =====
     const itineraryData = [
-      { dayLabel: "DAY 1", date: "3/6 (四)", title: "啟程：前往晴天之國", activities: [ { icon: "ph-airplane-in-flight", text: "桃園機場起飛", note: "虎航 IT214 (11:30)" }, { icon: "ph-bus", text: "抵達岡山 & 機場巴士", note: "約 15:05 抵達，移動至市區" }, { icon: "ph-bed", text: "飯店 Check-in", note: "岡山站前區域" }, { icon: "ph-bowl-food", text: "晚餐：岡山名物", note: "味司野村多蜜醬豬排丼" }, { icon: "ph-shopping-cart", text: "驚安殿堂・唐吉訶德", note: "第一波補貨 & 買水" } ] },
-      { dayLabel: "DAY 2", date: "3/7 (五)", title: "倉敷美觀懷舊散策", activities: [ { icon: "ph-train", text: "搭乘 JR 前往倉敷", note: "車程約 15 分鐘" }, { icon: "ph-camera", text: "倉敷川遊船", note: "體驗白壁建築與小橋流水" }, { icon: "ph-coffee", text: "下午茶：有鄰庵", note: "限量幸福布丁" }, { icon: "ph-storefront", text: "林源十郎商店 & 紙膠帶", note: "文青雜貨逛街" }, { icon: "ph-shopping-bag", text: "三井 Outlet Park 倉敷", note: "血拚購物行程" } ] },
-      { dayLabel: "DAY 3", date: "3/8 (六)", title: "移動日：前進鳥取砂丘", activities: [ { icon: "ph-train", text: "特急 Super Inaba", note: "前往鳥取站 (約 2 小時)" }, { icon: "ph-sun", text: "鳥取砂丘", note: "日本最大級砂丘，爬上馬背看海" }, { icon: "ph-image", text: "砂之美術館", note: "精緻的大型沙雕展" }, { icon: "ph-fire", text: "晚餐：鳥取和牛燒肉", note: "大快朵頤萬葉牛" } ] },
-      { dayLabel: "DAY 4", date: "3/9 (日)", title: "真相只有一個！柯南小鎮", activities: [ { icon: "ph-train", text: "前往由良站 (柯南站)", note: "" }, { icon: "ph-person-simple-walk", text: "柯南大道散步", note: "沿途蒐集雕像與人孔蓋" }, { icon: "ph-book-open", text: "青山剛昌故鄉館", note: "解謎遊戲拿證書" }, { icon: "ph-coffee", text: "白羅咖啡廳", note: "米花商店街休息" }, { icon: "ph-train", text: "移動至米子/皆生溫泉", note: "晚上泡湯放鬆" } ] },
-      { dayLabel: "DAY 5", date: "3/10 (一)", title: "妖怪出沒：鬼太郎與松江", activities: [ { icon: "ph-ghost", text: "境港水木茂大道", note: "尋找鬼太郎與眼球老爹" }, { icon: "ph-envelope", text: "妖怪神社 & 寄明信片", note: "五年後寄達的慢遞" }, { icon: "ph-train", text: "前往島根縣松江市", note: "" }, { icon: "ph-fort-wines", text: "松江城 & 堀川遊覽船", note: "國寶天守閣夕陽" } ] },
-      { dayLabel: "DAY 6", date: "3/11 (二)", title: "神話之國：出雲大社", activities: [ { icon: "ph-train", text: "一畑電車前往出雲", note: "沿著宍道湖前進" }, { icon: "ph-torii", text: "出雲大社 參拜", note: "巨大注連繩，求結緣" }, { icon: "ph-coffee", text: "星巴克 出雲大社店", note: "和洋融合特色建築" }, { icon: "ph-train", text: "返回岡山", note: "搭乘特急 Yakumo (八雲號)" } ] },
-      { dayLabel: "DAY 7", date: "3/12 (三)", title: "岡山最後巡禮 & 購物", activities: [ { icon: "ph-flower", text: "岡山後樂園", note: "日本三大名園散步" }, { icon: "ph-castle-turret", text: "岡山城 (烏城)", note: "外觀漆黑的帥氣城堡" }, { icon: "ph-shopping-cart", text: "Aeon Mall 岡山", note: "西日本最大級，最後大採購" }, { icon: "ph-beer-bottle", text: "居酒屋慶功宴", note: "慶祝旅程順利" } ] },
-      { dayLabel: "DAY 8", date: "3/13 (四)", title: "滿載而歸：回家囉", activities: [ { icon: "ph-coffee", text: "飯店早餐 & Check-out", note: "整理戰利品" }, { icon: "ph-bus", text: "前往岡山桃太郎機場", note: "" }, { icon: "ph-gift", text: "機場免稅店", note: "購買吉備糰子伴手禮" }, { icon: "ph-airplane-landing", text: "飛抵溫暖的家", note: "虎航 IT215 (15:55)" } ] }
+      { dayLabel: "DAY 1", date: "3/6 (五)", title: "啟程：前往晴天之國", activities: [ { icon: "ph-airplane-in-flight", text: "桃園機場起飛", note: "虎航 IT214 (11:30)",
+            mapUrl: "https://maps.app.goo.gl/mXssjK2tunhrF2zq8" }, { icon: "ph-bus", text: "抵達岡山 & 機場巴士", note: "約 15:05 抵達，移動至市區" }, { icon: "ph-bed", text: "飯店 Check-in", note: "岡山站前區域" }, { icon: "ph-bowl-food", text: "晚餐：岡山名物", note: "味司野村多蜜醬豬排丼" }, { icon: "ph-shopping-cart", text: "驚安殿堂・唐吉訶德", note: "第一波補貨 & 買水" } ] },
+      { dayLabel: "DAY 2", date: "3/7 (六)", title: "倉敷美觀懷舊散策", activities: [ { icon: "ph-train", text: "搭乘 JR 前往倉敷", note: "車程約 15 分鐘" }, { icon: "ph-camera", text: "倉敷川遊船", note: "體驗白壁建築與小橋流水" }, { icon: "ph-coffee", text: "下午茶：有鄰庵", note: "限量幸福布丁" }, { icon: "ph-storefront", text: "林源十郎商店 & 紙膠帶", note: "文青雜貨逛街" }, { icon: "ph-shopping-bag", text: "三井 Outlet Park 倉敷", note: "血拚購物行程" } ] },
+      { dayLabel: "DAY 3", date: "3/8 (日)", title: "移動日：前進鳥取砂丘", activities: [ { icon: "ph-train", text: "特急 Super Inaba", note: "前往鳥取站 (約 2 小時)" }, { icon: "ph-sun", text: "鳥取砂丘", note: "日本最大級砂丘，爬上馬背看海" }, { icon: "ph-image", text: "砂之美術館", note: "精緻的大型沙雕展" }, { icon: "ph-fire", text: "晚餐：鳥取和牛燒肉", note: "大快朵頤萬葉牛" } ] },
+      { dayLabel: "DAY 4", date: "3/9 (一)", title: "真相只有一個！柯南小鎮", activities: [ { icon: "ph-train", text: "前往由良站 (柯南站)", note: "" }, { icon: "ph-person-simple-walk", text: "柯南大道散步", note: "沿途蒐集雕像與人孔蓋" }, { icon: "ph-book-open", text: "青山剛昌故鄉館", note: "解謎遊戲拿證書" }, { icon: "ph-coffee", text: "白羅咖啡廳", note: "米花商店街休息" }, { icon: "ph-train", text: "移動至米子/皆生溫泉", note: "晚上泡湯放鬆" } ] },
+      { dayLabel: "DAY 5", date: "3/10 (二)", title: "妖怪出沒：鬼太郎與松江", activities: [ { icon: "ph-ghost", text: "境港水木茂大道", note: "尋找鬼太郎與眼球老爹" }, { icon: "ph-envelope", text: "妖怪神社 & 寄明信片", note: "五年後寄達的慢遞" }, { icon: "ph-train", text: "前往島根縣松江市", note: "" }, { icon: "ph-fort-wines", text: "松江城 & 堀川遊覽船", note: "國寶天守閣夕陽" } ] },
+      { dayLabel: "DAY 6", date: "3/11 (三)", title: "神話之國：出雲大社", activities: [ { icon: "ph-train", text: "一畑電車前往出雲", note: "沿著宍道湖前進" }, { icon: "ph-torii", text: "出雲大社 參拜", note: "巨大注連繩，求結緣" }, { icon: "ph-coffee", text: "星巴克 出雲大社店", note: "和洋融合特色建築" }, { icon: "ph-train", text: "返回岡山", note: "搭乘特急 Yakumo (八雲號)" } ] },
+      { dayLabel: "DAY 7", date: "3/12 (四)", title: "岡山最後巡禮 & 購物", activities: [ { icon: "ph-flower", text: "岡山後樂園", note: "日本三大名園散步" }, { icon: "ph-castle-turret", text: "岡山城 (烏城)", note: "外觀漆黑的帥氣城堡" }, { icon: "ph-shopping-cart", text: "Aeon Mall 岡山", note: "西日本最大級，最後大採購" }, { icon: "ph-beer-bottle", text: "居酒屋慶功宴", note: "慶祝旅程順利" } ] },
+      { dayLabel: "DAY 8", date: "3/13 (五)", title: "滿載而歸：回家囉", activities: [ { icon: "ph-coffee", text: "飯店早餐 & Check-out", note: "整理戰利品" }, { icon: "ph-bus", text: "前往岡山桃太郎機場", note: "" }, { icon: "ph-gift", text: "機場免稅店", note: "購買吉備糰子伴手禮" }, { icon: "ph-airplane-landing", text: "飛抵溫暖的家", note: "虎航 IT215 (15:55)" } ] }
     ];
 
     // ===== 程式邏輯 (保持不變) =====
@@ -385,15 +386,36 @@
       itineraryData.forEach((item, index) => {
         const card = document.createElement('div');
         card.className = 'accordion-item';
-        const activitiesHtml = item.activities.map(act => `
-          <div class="activity-item">
+        // 原本的寫法是直接回傳 HTML 字串，現在我們要加入判斷
+        const activitiesHtml = item.activities.map(act => {
+          
+          // 1. 定義內部內容 (Icon + 文字) - 這部分跟原本一樣
+          const innerContent = `
             <i class="ph-fill ${act.icon} act-icon"></i>
             <div>
               <div class="act-text">${act.text}</div>
               ${act.note ? `<div class="act-note">${act.note}</div>` : ''}
             </div>
-          </div>
-        `).join('');
+          `;
+
+          // 2. 判斷：如果有 mapUrl，就用 <a> 包起來；沒有就用 <div>
+          if (act.mapUrl) {
+            // 有連結：使用 <a> 標籤，target="_blank" 開新分頁
+            return `
+              <a href="${act.mapUrl}" target="_blank" class="activity-item">
+                ${innerContent}
+                <i class="ph-bold ph-arrow-square-out" style="margin-left:auto; color:#ccc; font-size:1rem;"></i>
+              </a>
+            `;
+          } else {
+            // 沒連結：維持原本的 <div>
+            return `
+              <div class="activity-item">
+                ${innerContent}
+              </div>
+            `;
+          }
+        }).join('');
         
         // 更新後的 HTML 結構：Day 標籤(左) + 資訊(中) + Icon(右)
         card.innerHTML = `
