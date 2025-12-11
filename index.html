@@ -4,6 +4,9 @@
   <meta charset="UTF-8" />
   <title>Our Trips | 旅程隨身記</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✈️</text></svg>">
+
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
   
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
@@ -90,7 +93,6 @@
     .ticket-header { height: 100px; background: linear-gradient(135deg, var(--primary) 0%, #52ab98 100%); position: relative; display: flex; align-items: center; justify-content: center; }
     .ticket-header.return-trip { background: linear-gradient(135deg, #ffb36b 0%, #ff7675 100%); }
     .ticket-plane-icon { font-size: 3rem; color: rgba(255,255,255,0.2); position: absolute; transition: transform 0.3s; }
-    
     .ticket-header.return-trip .ticket-plane-icon { transform: scaleX(-1); }
 
     .ticket-body { padding: 1.5rem; text-align: center; position: relative; }
@@ -111,20 +113,21 @@
     
     .accordion-header { display: flex; align-items: stretch; cursor: pointer; user-select: none; padding: 0; min-height: 90px; }
 
-    /* 直立 Day 標籤 */
+    /* Day Label: Upright Stack Style */
     .header-day-label {
       background: var(--accent); color: white;
       font-family: 'Oswald', sans-serif; 
       font-weight: 700; 
       font-size: 0.85rem; 
-      line-height: 1.2;   
+      line-height: 1.4;   
       writing-mode: vertical-lr; 
       text-orientation: upright; 
       display: flex; align-items: center; justify-content: center;
       padding: 0.6rem; 
-      min-width: 50px; 
+      min-width: 55px; 
       border-radius: var(--radius) 0 0 0; 
       transition: background 0.3s;
+      letter-spacing: 2px;
     }
     
     .header-info-center { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 1rem 0.5rem; text-align: center; }
@@ -133,7 +136,7 @@
       font-size: 1rem; 
       color: var(--accent); 
       font-weight: 700; 
-      margin-bottom: 0.8rem; 
+      margin-bottom: 0.6rem; 
       letter-spacing: 0.5px; 
     }
     
@@ -141,7 +144,7 @@
       font-size: 1.25rem; 
       font-weight: 700; 
       color: var(--text-main); 
-      line-height: 1.3; 
+      line-height: 1.2; 
     }
 
     .header-icon-right { display: flex; align-items: center; padding-right: 1.2rem; padding-left: 0.5rem; }
@@ -190,7 +193,7 @@
     <footer>
       <div style="color:var(--primary); font-weight:600; display: flex; align-items: center; justify-content: center; gap: 8px;">
         <i class="ph-fill ph-camera" style="font-size:1.3rem; color:var(--accent);"></i>
-        <span>有些風景，只為此刻的我們停留</span>
+        <span style="font-size: 1rem;">有些風景，只為此刻的我們停留</span>
         <i class="ph-fill ph-heart" style="font-size:1.3rem; color:var(--accent);"></i>
       </div>
     </footer>
