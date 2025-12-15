@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
@@ -8,7 +8,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Barcode+39+Text&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -208,7 +208,7 @@
         <header class="text-center mb-8">
             <h1 class="text-3xl font-bold text-primary mb-2 drop-shadow-sm tracking-wider">岡山 & 山陰</h1>
             <div class="inline-block px-4 py-1 rounded-full bg-white/40 border border-white/50 text-sm font-medium text-gray-600">
-                2025/3/6 — 3/13 <span class="ml-1 text-accent font-bold">(8天)</span>
+                2025/3/6 — 3/13
             </div>
         </header>
 
@@ -497,10 +497,14 @@
         </div>
 
         <!-- Footer -->
-        <footer class="mt-16 text-center text-primary/80">
+        <footer class="mt-16 text-center text-primary/80 pb-6">
             <div class="flex justify-center items-center gap-4 text-2xl mb-4">
                 <i class="fa-solid fa-camera"></i>
                 <i class="fa-solid fa-heart text-accent"></i>
+                <!-- Settings Button -->
+                <button onclick="openSettings()" class="text-gray-400 hover:text-gray-600 transition-colors" title="設定 API Key">
+                    <i class="fa-solid fa-gear"></i>
+                </button>
             </div>
             <p class="text-lg font-medium tracking-wide font-serif italic mb-2">"有些風景，只為此刻的我們停留"</p>
             <p class="text-xs text-gray-400 opacity-60">Made with ❤️ for Our Trips</p>
@@ -545,7 +549,7 @@
                     </div>
                     <div>
                         <span class="text-[10px] text-gray-400 uppercase block">Flight</span>
-                        <span class="text-sm font-bold text-gray-700">IT 214</span>
+                        <span class="text-sm font-bold text-gray-700" id="ticket-flight">IT 214</span>
                     </div>
                     <div class="text-right">
                         <span class="text-[10px] text-gray-400 uppercase block">Seat</span>
@@ -553,10 +557,13 @@
                     </div>
                 </div>
             </div>
-            <div class="bg-gray-50 p-4 flex justify-center border-t border-gray-100">
-                <div class="h-8 w-2/3 bg-[url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAAAAAA6fptVAAAACklEQQI12P4AAQABAgRB8AAAAABJRU5ErkJggg==')] bg-repeat-x opacity-20"></div>
-                <div class="font-mono text-[10px] text-center tracking-[0.5em] text-gray-400 w-full">||| || ||| | ||</div>
+            <!-- Real Barcode Font Implementation -->
+            <div class="bg-gray-50 py-2 px-4 flex flex-col items-center justify-center border-t border-gray-100 overflow-hidden">
+                <div id="ticket-barcode" class="text-5xl text-gray-700 whitespace-nowrap opacity-90 transform scale-y-110" style="font-family: 'Libre Barcode 39 Text', cursive;">
+                    *IT214/TPE/OKJ*
+                </div>
             </div>
+            
             <button onclick="closeTicket()" class="absolute bottom-4 right-4 w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-gray-500 hover:bg-gray-300 transition-colors">
                 <i class="fa-solid fa-xmark"></i>
             </button>
@@ -634,11 +641,50 @@
         </div>
     </div>
 
+    <!-- Settings Modal -->
+    <div id="settingsModal" class="fixed inset-0 z-[110] hidden items-center justify-center p-4">
+        <div onclick="closeSettings()" class="absolute inset-0 bg-black/40 backdrop-blur-sm transition-opacity opacity-0" id="settingsBackdrop"></div>
+        <div id="settingsCard" class="relative w-full max-w-sm bg-white rounded-2xl shadow-xl p-6 transform scale-95 opacity-0 transition-all duration-300">
+            <h3 class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+                <i class="fa-solid fa-gear text-gray-500"></i> 設定
+            </h3>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Google AI Studio API Key</label>
+                    <input type="password" id="apiKeyInput" class="w-full border border-gray-300 rounded-lg p-2 text-sm focus:ring-2 focus:ring-primary focus:outline-none" placeholder="輸入您的 API Key">
+                    <p class="text-[10px] text-gray-400 mt-1">
+                        手機使用需自備 Key。請至 <a href="https://aistudio.google.com/app/apikey" target="_blank" class="text-blue-500 underline">Google AI Studio</a> 免費申請。
+                    </p>
+                </div>
+                <button onclick="saveSettings()" class="w-full bg-primary text-white py-2 rounded-lg font-bold hover:bg-[#235563] transition-colors">
+                    儲存設定
+                </button>
+            </div>
+            <button onclick="closeSettings()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+    </div>
+
     <script>
         // --- GEMINI API SETUP ---
-        const apiKey = ""; // Will be injected by runtime
+        const envApiKey = ""; // Will be injected by runtime (if in editor)
+
+        // Function to get the active API key (User's custom key > Environment key)
+        function getApiKey() {
+            const userKey = localStorage.getItem('gemini_api_key');
+            return userKey || envApiKey;
+        }
 
         async function callGemini(prompt) {
+            const apiKey = getApiKey();
+            
+            if (!apiKey) {
+                // If no key is found, prompt the user to enter one
+                openSettings();
+                return "請先在設定中輸入您的 Google AI Studio API Key 才能使用此功能。";
+            }
+
             const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
             
             const payload = {
@@ -657,6 +703,11 @@
                     });
 
                     if (!response.ok) {
+                        // If 400/403 error, it might be an invalid key
+                        if (response.status === 400 || response.status === 403) {
+                             openSettings(); // Prompt to check key
+                             throw new Error("API Key 無效或過期");
+                        }
                         throw new Error(`HTTP error! status: ${response.status}`);
                     }
 
@@ -664,10 +715,58 @@
                     return data.candidates?.[0]?.content?.parts?.[0]?.text || "抱歉，AI 暫時無法回應，請稍後再試。";
                 } catch (error) {
                     console.warn(`Attempt ${i + 1} failed:`, error);
-                    if (i === maxRetries - 1) return "網路連線似乎有問題，請檢查您的網路狀況。";
+                    if (i === maxRetries - 1) return `連線失敗: ${error.message}`;
                     await new Promise(resolve => setTimeout(resolve, delay));
                     delay *= 2;
                 }
+            }
+        }
+
+        // --- SETTINGS FUNCTIONS ---
+        function openSettings() {
+            const modal = document.getElementById('settingsModal');
+            const backdrop = document.getElementById('settingsBackdrop');
+            const card = document.getElementById('settingsCard');
+            const input = document.getElementById('apiKeyInput');
+
+            // Pre-fill existing key if available
+            input.value = localStorage.getItem('gemini_api_key') || "";
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            
+            setTimeout(() => {
+                backdrop.classList.remove('opacity-0');
+                card.classList.remove('scale-95', 'opacity-0');
+                card.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        }
+
+        function closeSettings() {
+            const modal = document.getElementById('settingsModal');
+            const backdrop = document.getElementById('settingsBackdrop');
+            const card = document.getElementById('settingsCard');
+
+            backdrop.classList.add('opacity-0');
+            card.classList.remove('scale-100', 'opacity-100');
+            card.classList.add('scale-95', 'opacity-0');
+
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }, 300);
+        }
+
+        function saveSettings() {
+            const key = document.getElementById('apiKeyInput').value.trim();
+            if (key) {
+                localStorage.setItem('gemini_api_key', key);
+                alert("API Key 已儲存！您可以開始使用 AI 功能了。");
+                closeSettings();
+            } else {
+                localStorage.removeItem('gemini_api_key');
+                alert("API Key 已移除。");
+                closeSettings();
             }
         }
 
@@ -675,11 +774,6 @@
         // Unified function to handle different AI queries based on 'type'
         async function askAIGuide(dayId, context, type = 'guide') {
             const outputDiv = document.getElementById(`ai-response-${dayId}`);
-            
-            // Toggle logic: If clicking the same type again and it's open, close it.
-            // But if clicking a DIFFERENT type, keep it open and switch content.
-            // For simplicity in this lightweight version, we just toggle visibility if it's already showing *something*.
-            // To make it smoother, we'll just always refresh the content if it's a new request.
             
             if (!outputDiv.classList.contains('hidden') && outputDiv.dataset.currentType === type) {
                 outputDiv.classList.add('hidden');
@@ -710,7 +804,6 @@
                 prompt = `你是一位熱情幽默的專業日本導遊。請針對「${context}」這些景點，為來自台灣的旅客寫一段約 80-100 字的介紹。
                 要求：繁體中文，語氣輕鬆像朋友，加入一個有趣的冷知識或文化亮點，不要條列式。`;
             } else if (type === 'food') {
-                // MODIFIED PROMPT FOR TABELOG INTEGRATION
                 prompt = `你是一位日本美食專家。請推薦 2-3 項在「${context}」必吃的當地特色美食或名店。
                 要求：繁體中文，請務必包含「日文店名」或「日文美食名稱」以便搜尋。語氣令人垂涎三尺。`;
             } else if (type === 'shopping') {
@@ -745,7 +838,7 @@
                     ${htmlContent}
                 </div>`;
             } catch (error) {
-                outputDiv.innerHTML = `<p class="text-red-400 text-xs">暫時無法連線到 AI 服務，請稍後再試。</p>`;
+                outputDiv.innerHTML = `<p class="text-red-400 text-xs">${error.message || "暫時無法連線到 AI 服務，請稍後再試。"}</p>`;
             }
         }
 
@@ -821,7 +914,7 @@
             } catch (e) {
                 console.warn("Translation Failed:", e);
                 document.getElementById('res-jp').textContent = "翻譯失敗";
-                document.getElementById('res-romaji').textContent = "請檢查網路";
+                document.getElementById('res-romaji').textContent = "請檢查設定或網路";
                 loading.classList.add('hidden');
                 content.classList.remove('hidden');
             }
@@ -838,9 +931,11 @@
             const codeTo = document.getElementById('code-to');
             const cityTo = document.getElementById('city-to');
             const date = document.getElementById('ticket-date');
+            const flight = document.getElementById('ticket-flight'); // Flight number text
+            const barcode = document.getElementById('ticket-barcode'); // Barcode text
             const planeIcon = document.getElementById('ticket-plane-icon');
             const btnIcon = document.getElementById(type === 'outbound' ? 'plane-out' : 'plane-in');
-            const ticketHeader = document.getElementById('ticket-header'); // Get header element
+            const ticketHeader = document.getElementById('ticket-header');
 
             if(type === 'outbound') {
                 btnIcon.parentElement.classList.add('overflow-hidden');
@@ -861,6 +956,8 @@
                     codeTo.textContent = 'OKJ';
                     cityTo.textContent = 'Okayama';
                     date.textContent = '2025/3/6';
+                    flight.textContent = 'IT 214';
+                    barcode.textContent = '*IT214/TPE/OKJ*'; // Barcode content for outbound
                     planeIcon.classList.remove('rotate-[270deg]');
                     planeIcon.classList.add('rotate-90');
                     
@@ -873,6 +970,8 @@
                     codeTo.textContent = 'TPE';
                     cityTo.textContent = 'Taipei';
                     date.textContent = '2025/3/13';
+                    flight.textContent = 'IT 215'; // Assuming standard return flight number
+                    barcode.textContent = '*IT215/OKJ/TPE*'; // Barcode content for inbound
                     planeIcon.classList.remove('rotate-90');
                     planeIcon.classList.add('rotate-[270deg]');
 
